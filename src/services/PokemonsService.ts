@@ -43,8 +43,6 @@ module PokemonsService{
 
     export function getStrongWeak(name: string): Array<PokemonI> {
         const pokemons: Array<PokemonI> = db;
-        let matchesStrong: Array<PokemonI> = [];
-        let matchesWeak: Array<PokemonI> = [];
         let matches: Array<PokemonI> = [];
         let pokemon: Array<PokemonI> = pokemons.filter(function (e) {
             return e.name.toLowerCase().indexOf(name.toLowerCase()) > -1;
@@ -86,13 +84,21 @@ module PokemonsService{
         }
     }
 
-    export function addPokemon(name: string): Array<PokemonI>{
-        let newPoke= name.split("-")
-       
-        console.log(newPoke)
+    export function addPokemon(name: string): PokemonI{
+        let pokemons: Array<PokemonI> = db;
 
-        throw `<b>Nombre:</b> ${newPoke[0]}. <b>Tipo:</b> ${newPoke[1]}. <b>Numero:</b> ${newPoke[2]}. <b>Es fuerte contra:</b> ${newPoke[3]}. <b>Es debil contra:</b> ${newPoke[4]}.`
-
+        const newpoke = {
+            "name": name,
+            "id": pokemons.length + 1,
+            "type": [{
+                "name": "desconocido",
+                "strongAgainst": ["desconocido"],
+                "weakAgainst": ["desconocido"]
+            }],
+            "img": "desconocido"
+        }
+        pokemons.push(newpoke)
+        return newpoke
     }
 
 }
